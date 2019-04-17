@@ -182,7 +182,7 @@
       </table>
     <script>
         var pics=["116010.jpg","113010.jpg"];
-        var product=["Artist Holding a Thistle",'Self-portrait in a Straw Hat'];
+        var product=["Artist Holding a Thistle","Self-portrait in a Straw Hat"];
         var quantity=[2,1];
         var price=[500,700];
         var p="";
@@ -191,8 +191,8 @@
             p+='<tr><td><img class="img-thumbnail" src="images/art/tiny/'+pics[i]+'" alt="..."></td>';
             p+='<td>'+product[i]+'</td>';
             p+='<td>'+quantity[i]+'</td>';
-            p+='<td>'+price[i]+'</td>';
-            p+='<td>'+price[i]*quantity[i]+'</td></tr>';
+            p+='<td>$'+price[i]+'</td>';
+            p+='<td>$'+price[i]*quantity[i]+'</td></tr>';
             sum+=price[i]*quantity[i];
         }
         window.onload=function () {
