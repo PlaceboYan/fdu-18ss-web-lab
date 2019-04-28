@@ -200,11 +200,12 @@
             {
                 f(i);
             }
+            var tax=(sum>=1000)?0:40;
             document.getElementById("tbody").innerHTML=p;
             document.getElementById("sum").innerHTML='$'+sum;
             document.getElementById("tax").innerHTML='$'+sum/10;
-            document.getElementById("shipping").innerHTML='$100';
-            document.getElementById("total").innerHTML='$'+(sum+sum/10+100);
+            document.getElementById("shipping").innerHTML='$'+tax;
+            document.getElementById("total").innerHTML='$'+(sum+sum/10+tax);
         };
     </script>
 </div>  <!-- end container -->
