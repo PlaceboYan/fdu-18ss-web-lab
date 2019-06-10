@@ -84,7 +84,8 @@
                                     
 
 		<ul class="caption-style-2">
-            <?php 
+            <?php
+            error_reporting(0);
             //Fill this place
 
             //****** Hint ******
@@ -104,29 +105,29 @@
             function getsql()
             {
                 $sql = "SELECT * FROM imagedetails";
-                if ($_GET["continent"] != '0') {
+                if (isset($_GET["continent"]) && $_GET["continent"] != '0') {
                     $sql .= ' WHERE ContinentCode="' . $_GET["continent"] . '"';
-                    if ($_GET["country"] != '0') {
+                    if ($_GET["country"] != '0' && isset($_GET["country"])) {
                         $sql .= ' AND CountryCodeISO="' . $_GET["country"] . '"';
-                        if ($_GET['title']!='')
+                        if ($_GET['title']!='' && isset($_GET["title"]))
                         {
                             $sql.=" AND Title='".$_GET["title"]."'";
                         }
 
                     } else {
-                        if ($_GET['title']!='')
+                        if ($_GET['title']!='' && isset($_GET["title"]))
                         {
                             $sql.=" AND Title='".$_GET["title"]."'";
                         }
                     }
                 } else {
-                    if ($_GET["country"] != '0') {
+                    if ($_GET["country"] != '0' && isset($_GET["country"])) {
                         $sql .= ' WHERE CountryCodeISO="' . $_GET["country"] . '"';
-                        if ($_GET['title'] != '') {
+                        if ($_GET['title'] != '' && isset($_GET["title"])) {
                             $sql .= " AND Title='" . $_GET["title"]."'";
                         }
                     } else {
-                        if ($_GET['title']!='')
+                        if ($_GET['title']!='' && isset($_GET["title"]))
                         {
                             $sql.=" WHERE Title='".$_GET["title"]."'";
                         }
