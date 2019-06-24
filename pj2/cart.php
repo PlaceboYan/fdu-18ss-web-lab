@@ -24,6 +24,7 @@
     <body>
         <?php
         session_start();
+        $_SESSION["r"]=array();
         $servername = "localhost";
         $username = "root";
         $password = "";
@@ -65,7 +66,7 @@
  * Date: 2019/5/22
  * Time: 16:03
  */
-
+        $i=0;
         $sql="SELECT * FROM carts WHERE userID=".$userID;
         $result=$conn->query($sql);
         while ($each=$result->fetch_assoc())
@@ -83,19 +84,41 @@
         echo "</div></div> ";
         ?>
         <div style="margin-top: 50px"></div>
-        <div class="fixed-bottom" style="background-color: black;">
-            <ul>
-                <li style="display: inline; background-color: orangered; padding: 10px 40px 10px 40px; float: left; color: white" onclick="reset();">
-                    重置
-                </li>
-                <li style="display: inline; background-color: orangered; padding: 10px 40px 10px 40px; float: right; color: white" onclick="onDeal();">
-                    下单
-                </li>
-            </ul>
-        </div>
-
+<!--        <div class="fixed-bottom" style="background-color: black;">-->
+<!--            <ul>-->
+<!--                <li style="background-color: orangered; padding: 10px 40px 10px 40px; color: white" onclick="reset();">-->
+<!--                    重置-->
+<!--                </li>-->
+<!--                <li style="padding: 0px 40px 0px 40px; color: white;">-->
+<!--                    <div id="cal"></div>-->
+<!--                </li>-->
+<!--                <li style="background-color: orangered; padding: 10px 40px 10px 40px; color: white" onclick="onDeal();">-->
+<!--                    下单-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+        <div class="input-group mb-3 fixed-bottom">
+            <div class="input-group-prepend">
+                <button class="btn btn-outline-secondary" type="button" onclick="reset();" style="padding: 10px 40px 10px 40px; color: white; background-color: orangered;border: none">重置</button>
+            </div>
+            <div id="cal" class="form-control"></div>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" onclick="onDeal();" style="padding: 10px 40px 10px 40px; color: white; background-color: orangered; border: none">下单</button>
+            </div>
+            </div>
         <script>
             ajax(1);
+            function buy(id) {
+                var xml=new XMLHttpRequest();
+                xml.open("POST","buyNow.php",true);
+                xml.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                xml.onreadystatechange=function () {
+                    if (xml.readyState === 4 && xml.status === 200) {
+                        window.location.href='deal.php';
+                    }
+                };
+                xml.send('id='+id);
+            }
         </script>
 
 

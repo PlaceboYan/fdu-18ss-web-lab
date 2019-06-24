@@ -62,13 +62,13 @@
     if (isset($_GET["id"])) $id=$_GET["id"]; else $id=0;
     echo "<table class='table'><form method='post' action='uploadDeal.php' enctype='multipart/form-data'>";
     echo "<tr><td>";?>
-    <input id="img_input2" type="file" accept="image/*" name="myfile" required/>
-    <label for="img_input2" id="img_label2">选择文件(不超过8M)<i class="fa fa-plus fa-lg">+</i></label>
+    <input id="img_input2" type="file" accept="image/*" name="myfile"/>
+    <label for="img_input2" id="img_label2">选择文件(不超过2M)<i class="fa fa-plus fa-lg">+</i></label>
     <?php
     if (!isset($_GET["id"])) {
         echo "</td><td><div id='preview_box2' style='height: 405px; width: 100%; border: dashed'></div></td></tr>";
         echo "<tr><td>Title:</td><td><input type='text' class='form-control' name='title' required></td></tr>";
-        echo "<tr><td><input type='number' class='form-control' name='id' style='display: none' value='0'>Artist:</td><td><input type='text' class='form-control' name='artist' required></td></tr>";
+        echo "<tr><td><input type='number' name='id' style='display: none' value='0'>Artist:</td><td><input type='text' class='form-control' name='artist' required></td></tr>";
         echo "<tr><td>Price:</td><td><input type='number' class='form-control' name='price' onblur='check();' required></td></tr>";
         echo "<tr><td>Year:</td><td><input type='number' class='form-control' name='year' onblur='check1();' required></td></tr>";
         echo "<tr><td>Width(cm):</td><td><input type='number' class='form-control' name='width' onblur='check1();' required></td></tr>";
@@ -88,13 +88,13 @@
         }
         echo "</td></tr>";
         echo "<tr><td>Title:</td><td><input type='text' class='form-control' name='title' value='".$r["title"]."' required></td></tr>";
-        echo "<tr><td><input type='number' class='form-control' name='id' style='display: none' value='".$id."'>Artist:</td><td><input type='text' class='form-control' name='artist' value='".$r["artist"]."' required></td></tr>";
+        echo "<tr><td><input type='number' name='id' style='display: none' value='".$id."'>Artist:</td><td><input type='text' class='form-control' name='artist' value='".$r["artist"]."' required></td></tr>";
         echo "<tr><td>Price:</td><td><input type='number' class='form-control' name='price' value=".$r["price"]." onblur='check();' required></td></tr>";
         echo "<tr><td>Year:</td><td><input type='number' class='form-control' name='year' value=".$r["yearOfWork"]." onblur='check1();' required></td></tr>";
-        echo "<tr><td>Width(cm):</td><td><input type='number' class='form-control' name='width' value=".$r["width"]." onblur='check1();' required></td></tr>";
-        echo "<tr><td>Height(cm):</td><td><input type='number' class='form-control' name='height' value=".$r["height"]." onblur='check1();' required></td></tr>";
+        echo "<tr><td>Width(cm):</td><td><input type='number' class='form-control' name='width' value=".$r["width"]." onblur='check3();' required></td></tr>";
+        echo "<tr><td>Height(cm):</td><td><input type='number' class='form-control' name='height' value=".$r["height"]." onblur='check2();' required></td></tr>";
         echo "<tr><td>Genre:</td><td><input type='text' class='form-control' name='genre' value='".$r["genre"]."' required></td></tr>";
-        echo "<tr><td>Description:</td><td><textarea type='text' class='form-control' name='description' required>".$r["description"]."'</textarea></td></tr>";
+        echo "<tr><td>Description:</td><td><textarea type='text' class='form-control' name='description' required>".$r["description"]."</textarea></td></tr>";
 
     }
     echo "<tr><td colspan='2'><button type='submit' class='btn btn-primary'>Submit</button></td></tr>";
@@ -114,8 +114,8 @@
             var target=document.getElementById("img_input2");
             var fileSize = target.files[0].size;
             var size = fileSize / 1024;
-            if(size>8000){
-                alert("附件不能大于8M");
+            if(size>2000){
+                alert("附件不能大于2M");
                 location.reload();
             } else {
                 var reader = new FileReader();
@@ -149,5 +149,12 @@
 //            if (document.getElementsByName("year")[0].value<0) document.getElementsByName("year")[0].value=0;
             document.getElementsByName("year")[0].value=Math.round(document.getElementsByName("year")[0].value);
         }
-
+        function check2() {
+            if (document.getElementsByName("height")[0].value<0) document.getElementsByName("height")[0].value=0;
+            document.getElementsByName("height")[0].value=Math.round(document.getElementsByName("height")[0].value);
+        }
+        function check3() {
+            if (document.getElementsByName("width")[0].value<0) document.getElementsByName("width")[0].value=0;
+            document.getElementsByName("width")[0].value=Math.round(document.getElementsByName("width")[0].value);
+        }
     </script>

@@ -25,79 +25,6 @@ function checkNumber() {
     if (document.getElementsByName("quantity")[0].innerHTML<0) document.getElementsByName("quantity")[0].innerHTML = "0";
 }
 
-
-function loginPassword() {
-    let password1 = document.getElementsByName("password")[0].value;
-    let rightPassword = "crafting123";
-    let passw = /^[0-9a-zA-Z_]{6,888}$/;
-    if (password1.length === 0) {
-        document.getElementById("loginPasswordError").innerHTML = "<div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'> &times;</button>请填写密码</span>";
-        return false;
-    } else if (!passw.test(password1)) {
-        document.getElementById("loginPasswordError").innerHTML = "<div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'> &times;</button>请按正确格式填写密码，示例：crafting123</span>";
-        return false;
-    }
-    else if (password1 === document.getElementsByName("username")[0].value) {
-        document.getElementById("loginPasswordError").innerHTML = "<div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'> &times;</button>密码不能与用户名相同！</span>";
-        return false;
-    }else if (password1 !== rightPassword) {
-        document.getElementById("loginPasswordError").innerHTML = "<div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'> &times;</button>密码错误</span>";
-        return false;
-    }
-
-    document.getElementById("loginPasswordError").innerHTML = "";
-    return true;
-}
-
-function signinPassword() {
-    let password1 = document.getElementById("password").value;
-    let passw = /^[0-9a-zA-Z_]{6,888}$/;
-    let username1=document.getElementById("usernameSignin").value;
-    if (password1.length === 0) {
-        document.getElementById("signinPasswordError").innerHTML = "<div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'> &times;</button>请填写密码</span>";
-        return false;
-    }
-    if (password1===username1)
-    {
-        document.getElementById("signinPasswordError").innerHTML = "<div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'> &times;</button>密码不能与用户名相同！</span>";
-        return false;
-    }
-    if (!passw.test(password1)) {
-        document.getElementById("signinPasswordError").innerHTML = "<div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'> &times;</button>请按正确格式填写密码，示例：crafting123</span>";
-        return false;
-    }
-
-    document.getElementById("signinPasswordError").innerHTML = "";
-    return true;
-}
-
-function signinRepassword() {
-    let password2 = document.getElementById("repassword").value;
-    let password1 = document.getElementById("password").value;
-    if (password2.length === 0) {
-        document.getElementById("repasswordError").innerHTML = "<div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'> &times;</button>请重复输入密码！</span>";
-        return false;
-    } else if (password1 !== password2) {
-        document.getElementById("repasswordError").innerHTML = "<div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'> &times;</button>两次输入密码不一致！</span>";
-        return false;
-    }
-    document.getElementById("repasswordError").innerHTML = "";
-    return true;
-}
-
-function signinName() {
-    let username1 = document.getElementById("usernameSignin").value;
-    let re = /^(?!^\d+$)(?!^[a-zA-Z]+$)[0-9a-zA-Z_]{6,888}$/;
-    if (username1.length === 0) {
-        document.getElementById("signinNameError").innerHTML = "<div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'> &times;</button>请填写用户名！</span>";
-        return false;
-    } else if (!re.test(username1)) {
-        document.getElementById("signinNameError").innerHTML = "<div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'> &times;</button>请按正确格式填写用户名，示例：Placebo_Yan</span>";
-        return false;
-    }
-    document.getElementById("signinNameError").innerHTML = "";
-}
-
 function telError() {
     let tel = /^[1][0-9]{10}$/;
     let telephone = document.getElementById("tel").value;
@@ -133,66 +60,12 @@ function upload1() {
 
 // document.getElementById("shoppinglist1").onmouseenter=
 
-function changesigninPassword() {
-    let password1 = document.getElementById("password").value;
-    let passw = /^[0-9a-zA-Z_]{6,888}$/;
-    if (!passw.test(password1)) {
-        document.getElementById("signinPasswordError").innerHTML = "<span class='error'>请按正确格式填写密码</span>";
-        return false;
-    }
-    document.getElementById("signinPasswordError").innerHTML = "";
-    return true;
-}
-
-function changesigninRepassword() {
-    let password2 = document.getElementById("repassword").value;
-    let password1 = document.getElementById("password").value;
-    if (password1 !== password2) {
-        document.getElementById("repasswordError").innerHTML = "<span class='error'>两次输入密码不一致！</span>";
-        return false;
-    }
-    document.getElementById("repasswordError").innerHTML = "";
-    return true;
-}
-
-function changesigninName() {
-    let username1 = document.getElementById("username").value;
-    let re = /^(?=^[0-9a-zA-Z_]{6,888}$)\w*[a-zA-Z_]+\w*/;
-    if (!re.test(username1)) {
-        document.getElementById("signinNameError").innerHTML = "<span class='error'>请按正确格式填写用户名！</span>";
-        return false;
-    }
-    document.getElementById("signinNameError").innerHTML = "";
-}
-
-function changetelError() {
-    let tel = /^[1][0-9]{10}$/;
-    let telephone = document.getElementById("tel").value;
-    if (!tel.test(telephone)) {
-        document.getElementById("telError").innerHTML = "<span class='error'>请按照格式填写电话！</span>";
-        return false;
-    }
-    document.getElementById("telError").innerHTML = "";
-}
-
 
 //生成验证码的方法
 function createCode(length) {
-    // let code = "";
-    // let codeLength = parseInt(length); //验证码的长度
     let checkCode = document.getElementById("checkCode");
     document.getElementById("checkCode").innerHTML='<canvas width="120" height="40" id="c1"> </canvas>';
     s1();
-    ////所有候选组成验证码的字符，当然也可以用中文的
-    // let codeChars = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
-    // for (let i = 0; i < codeLength; i++) {
-    //     let charNum = Math.floor(Math.random() * 62);
-    //     code += codeChars[charNum];
-    // }
-    // if (checkCode) {
-    //     checkCode.className = "code";
-    //     checkCode.innerHTML = code;
-    // }
 }
 
 function validateCode() {
@@ -227,11 +100,8 @@ function getCookie(name) {
     var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
     return v ? v[2] : null;
 }
-//
-// function setCookie(name, value) {
-//     document.cookie =" "+name + "=" + value + "; ";
-//     alert(cookie);
-// }
+
+
 function setCookie(cname, cvalue, exdays=1) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60*60*1000));
@@ -287,7 +157,7 @@ function s1() {
         ctx.stroke();
     }
 //6.随机产生40个干扰的小点
-    for(let i=0;i<40;i++){
+    for(let i=0;i<100;i++){
         ctx.beginPath();
         ctx.arc(rn(0,w),rn(0,h),1,0,2*Math.PI);
         ctx.closePath();

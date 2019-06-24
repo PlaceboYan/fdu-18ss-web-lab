@@ -68,12 +68,15 @@
         xml.onreadystatechange = function () {
             if (xml.readyState === 4 && xml.status === 200) {
                 var t = xml.responseText;
-                if (t=='11') {
+                if (t=='11' && validateCode()) {
                     setCookie("username",name);
                     setCookie("loginState","true");
                     window.location.href="index.php";
                     return true;
-                } else return false;
+                } else {
+                    if (!validateCode()) alert("验证码错误");
+                    return false;
+                }
             }
         };
         xml.send("name=" + name + "&password=" + password);

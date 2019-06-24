@@ -58,16 +58,7 @@
         if ($conn->connect_error) {
             die("连接失败: " . $conn->connect_error);
         }
-        $usersResult=$conn->query("SELECT * FROM users");
-        $username=array();
-        while($users = $usersResult->fetch_assoc())
-        {
-            $username[$users["name"]]=$users["password"];
-        }
-        ?>
-
-        <?php
-            $sql=$conn->query("SELECT * FROM artworks ORDER BY timeReleased DESC LIMIT 3");
+        $sql=$conn->query("SELECT * FROM artworks WHERE orderID IS null ORDER BY timeReleased DESC LIMIT 3");
         ?>
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="height: 600px;">
             <ol class="carousel-indicators">
@@ -136,29 +127,14 @@
         }
         echo "<h1>Hottest Artworks</h1>";
         echo "<div class='container-fluid'><div class='row'>";
-
+        $paintingsResult = $conn->query("SELECT artworkID,imageFileName,title,description,artist,view FROM artworks WHERE orderID IS null ORDER BY view DESC LIMIT 3");
         for ($i=1; $i<=3; $i++) {
             echo "<div class='col-sm jumbotron jumbotron-fluid' id='" . $i . "'>";
-            $j = gethottest($a);
-            $paintingsResult = $conn->query("SELECT artworkID,imageFileName,title,description,artist FROM artworks WHERE artworkID=" . $hottestOne);
             $paintings = $paintingsResult->fetch_assoc();
-            echo("<h1 style='color:red'>Rank " . $i . "</h1><br><h2>" . $paintings["title"] . "</h2><br><h4>作者：" . $paintings["artist"] . "</h4> <img class='img-thumbnail' src='resources/img/" . $paintings["imageFileName"] . "' height='200px' width='300px' id='" . $hottestOne . "'><br> 热度：<div style='color:red; font-family:MV Boli; font-size: larger'>" . $j . "</div><br>" . $paintings["description"]);
+            echo("<h1 style='color:red'>Rank " . $i . "</h1><br><h2>" . $paintings["title"] . "</h2><br><h4>作者：" . $paintings["artist"] . "</h4> <img class='img-thumbnail' src='resources/img/" . $paintings["imageFileName"] . "' height='200px' width='300px' id='" . $paintings["artworkID"] . "'><br> 热度：<div style='color:red; font-family:MV Boli; font-size: larger'>" . $paintings["view"] . "</div><br>" . $paintings["description"]);
             echo "</div>";
-            $a[$hottestOne] = 0;
         }
         echo "</div></div>";
-        function gethottest($a)
-        {
-            $hottest = 0;
-            global $hottestOne;
-            for ($i = 0; $i <= max(array_keys($a)); $i++) {
-                if ($a[$i] > $hottest) {
-                    $hottest = $a[$i];
-                    $hottestOne = $i;
-                }
-            }
-            return $hottest;
-        }
         ?>
 </body>
 </html>

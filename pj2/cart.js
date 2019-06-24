@@ -36,38 +36,51 @@ function determine(paintingID) {
 }
 function choose(paintingID) {
     var xml=new XMLHttpRequest();
-    xml.open("POST","onDeal.php",true);
+    xml.open("POST","cartCal.php",true);
     xml.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xml.onreadystatechange=function () {
         if (xml.readyState === 4 && xml.status === 200) {
+
+            document.getElementById("cal").innerText=xml.responseText;
         }
     };
     xml.send("paintingID="+paintingID);
 }
 function dele(paintingID) {
     var xml=new XMLHttpRequest();
-    xml.open("POST","onDeal.php",true);
+    xml.open("POST","cartCal.php",true);
     xml.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xml.onreadystatechange=function () {
         if (xml.readyState === 4 && xml.status === 200) {
+            document.getElementById("cal").innerText=xml.responseText;
         }
     };
     xml.send("delPaintingID="+paintingID);
 }
 function onDeal() {
-    var xml=new XMLHttpRequest();
-    xml.open("POST","onDeal.php",true);
-    xml.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xml.onreadystatechange=function () {
-        if (xml.readyState === 4 && xml.status === 200) {
-            alert(xml.responseText);
-            if (xml.responseText!="你没有选择商品！") window.location.href="personalInfo.php";
-        }
-    };
-    xml.send("pay=true");
-
+    // var xml=new XMLHttpRequest();
+    // xml.open("POST","onDeal.php",true);
+    // xml.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    // xml.onreadystatechange=function () {
+    //     if (xml.readyState === 4 && xml.status === 200) {
+    //
+    //         if (xml.responseText!="你没有选择商品！") window.location.href="personalInfo.php";
+    //     }
+    // };
+    // xml.send("pay=true");
+    window.location.href="deal.php";
 }
 function reset() {
     pics.clear();
-    $("[name='checkbox']").removeAttr("checked");//全选
+    var xml=new XMLHttpRequest();
+    xml.open("POST","cartClear.php",true);
+    xml.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xml.onreadystatechange=function () {
+        if (xml.readyState === 4 && xml.status === 200) {
+            $("[name='checkbox']").removeAttr("checked");//全选
+            document.getElementById("cal").innerText="　";
+        }
+    };
+    xml.send();
+
 }

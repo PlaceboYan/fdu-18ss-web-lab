@@ -99,6 +99,7 @@
                 echo "<tr><td>Year</td><td>".$artwork["yearOfWork"]."</td></tr>";
                 echo "<tr><td>Heat</td><td>".$a[$id]."</td></tr>";
                 echo "<tr><td>Artist</td><td>".$artwork["artist"]."</td></tr>";
+                echo "<tr><td>Genre</td><td>".$artwork["genre"]."</td></tr>";
                 echo "<tr><td>Price</td><td>$ ".$artwork["price"]."</td></tr>";
 //                echo "<tr><td>Quantity</td><td>
 //                <div class='input-group mb-3' style='width: 30%; left:35%'>

@@ -200,3 +200,14 @@ span:hover {
 #preview_box2 img {
     width: 200px;
 }
+.tableNew
+{
+    border: none;
+}
+.tableNew tr{
+    padding: 10px;
+}
+.tableNew th
+{
+    width: 100px;
+}

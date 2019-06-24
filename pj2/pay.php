@@ -2,55 +2,23 @@
 /**
  * Created by IntelliJ IDEA.
  * User: 13805
- * Date: 2019/6/11
- * Time: 17:04
+ * Date: 2019/6/23
+ * Time: 1:29
  */
+session_start();
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "pj2";
 $conn = new mysqli($servername, $username, $password, $dbname);
-session_start();
-if (isset($_SESSION["r"])) $r=$_SESSION["r"]; else $r=array();
-if (isset($_POST["paintingID"]))
-{
-    array_push($r,$_POST["paintingID"]);
-    $_SESSION["r"]=$r;
-}
-if (isset($_POST["delPaintingID"]))
-{
-    $r = array_diff($r, [$_POST["delPaintingID"]]);
-    $_SESSION["r"]=$r;
-}
-if (isset($_POST["pay"])&&$_POST["pay"])
-{
-    $sql="SELECT * FROM users WHERE name='".$_COOKIE["username"]."'";
-    $result=$conn->query($sql);
-    $user=$result->fetch_assoc();
-    $balance=$user["balance"];
-    $sum=0;
-    foreach ($r as $i)
-    {
-        $sql="SELECT * FROM artworks WHERE artworkID='".$i."'";
-        $result=$conn->query($sql);
-        $painting=$result->fetch_assoc();
-        $sum+=$painting["price"];
-    }
-    $sum+=($sum>=1000)?0:100;
-    if ($sum>$balance)
-    {
-        echo "余额不足请充值！需要".$sum."$";
-    }
-    else if (count($r)==0)
-    {
-        echo "你没有选择商品！";
-    }
-    else
-    {
-        $balance-=$sum;
+$sum=$_POST["sum"];
+$r=$_SESSION["r"];
         echo "交易成功！共花费".$sum."$";
-        $sql="UPDATE users SET balance=$balance WHERE name='".$_COOKIE["username"]."'";
+        $sql="UPDATE users SET balance=(balance-$sum) WHERE name='".$_COOKIE["username"]."'";
+        $conn->query($sql);
+        $sql="SELECT * FROM users WHERE name='".$_COOKIE["username"]."'";
         $result=$conn->query($sql);
+        $user=$result->fetch_assoc();
         $sql="INSERT INTO orders (ownerID,sum,timeCreated) VALUES ('".$user["userID"]."',$sum,NOW())";
         $result=$conn->query($sql);
         $sql="SELECT LAST_INSERT_ID();";
@@ -73,7 +41,3 @@ if (isset($_POST["pay"])&&$_POST["pay"])
         }
         $r=array();
         $_SESSION["r"]=$r;
-
-    }
-}
-

@@ -5,7 +5,7 @@
  * Date: 2019/6/9
  * Time: 21:06
  */
-
+session_start();
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -36,7 +36,7 @@ while ($each = $result->fetch_assoc()) {
         <p class='card-text'>Price:".$img["price"]."</p>
         <button id='remove' class='btn btn-primary' onclick='del(".$each["cartID"].",".$page.")'>Remove</button>
         <button id='details' class='btn btn-primary' onclick='jmp(".$img["artworkID"].")'>Details</button>
-        <button id='Pay Now!' class='btn btn-primary'>Pay Now!</button>
+        <button id='Pay Now!' class='btn btn-primary' onclick='buy(".$img["artworkID"].")'>Pay Now!</button>
       </div>
       </td>
       </tr></table>
@@ -46,4 +46,5 @@ while ($each = $result->fetch_assoc()) {
 }
 echo "</table>";
 if ($i==0) echo "<h1>你的购物车里没有商品哦！快去选购一些商品吧</h1>";
+
 ?>
